@@ -50,7 +50,7 @@ export default function Hero() {
   return (
     <header className="relative w-full h-[70vh] md:h-[85vh] overflow-hidden">
       <div className="absolute inset-0">
-        <Spline scene="https://prod.spline.design/8nsoLg1te84JZcE9/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+        <Spline scene="https://prod.spline.design/cEecEwR6Ehj4iT8T/scene.splinecode" style={{ width: '100%', height: '100%' }} />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-gray-900/20 via-gray-900/40 to-gray-900/80" />
       </div>
       <div className="relative z-10 flex h-full items-center">
