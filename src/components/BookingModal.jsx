@@ -1,15 +1,32 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { X, Smartphone } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { site } from '../data/siteData';
 
 export default function BookingModal({ open, onClose }) {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (open && dialogRef.current) {
+      dialogRef.current.focus();
+    }
+  }, [open]);
+
   if (!open) return null;
   const downloadUrl = site.stores.android; // use Android for QR; links provided separately
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/50" aria-hidden onClick={onClose} />
-      <div className="relative w-[92vw] max-w-lg rounded-2xl bg-white shadow-xl p-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="booking-title" aria-describedby="booking-desc">
+      <button
+        className="absolute inset-0 bg-black/50"
+        aria-label="Close booking modal"
+        onClick={onClose}
+      />
+      <div
+        ref={dialogRef}
+        tabIndex={-1}
+        className="relative w-[92vw] max-w-lg rounded-2xl bg-white shadow-xl p-6 outline-none"
+      >
         <button
           onClick={onClose}
           aria-label="Close"
@@ -19,10 +36,10 @@ export default function BookingModal({ open, onClose }) {
         </button>
         <div className="flex items-center gap-2 text-indigo-600 font-medium">
           <Smartphone className="h-5 w-5" />
-          Book With Spotles App
+          <span id="booking-title">Book With Spotles App</span>
         </div>
         <h3 className="mt-2 text-xl font-semibold text-gray-900">Download our mobile app to book instantly</h3>
-        <p className="mt-1 text-sm text-gray-600">No login required on this site. All bookings through the official app.</p>
+        <p id="booking-desc" className="mt-1 text-sm text-gray-600">No login required on this site. All bookings through the official app.</p>
 
         <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
           <div className="flex flex-col items-center justify-center rounded-xl border border-gray-200 p-4">
@@ -33,7 +50,7 @@ export default function BookingModal({ open, onClose }) {
             <a
               href={site.stores.android}
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               className="flex items-center justify-center rounded-lg bg-black text-white px-4 py-3"
             >
               Get it on Google Play
@@ -41,7 +58,7 @@ export default function BookingModal({ open, onClose }) {
             <a
               href={site.stores.ios}
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               className="flex items-center justify-center rounded-lg bg-gray-900 text-white px-4 py-3"
             >
               Download on the App Store
